@@ -69,8 +69,29 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (king.y === queen.y || king.x === queen.x) return true;
+  let k = queen.y;
+  for (let i = queen.x; i < 9; i += 1) {
+    if (king.x === i && king.y === k) return true;
+    k += 1;
+  }
+  k = queen.y;
+  for (let i = queen.x; i > 0; i -= 1) {
+    if (king.x === i && king.y === k) return true;
+    k -= 1;
+  }
+  k = queen.y;
+  for (let i = queen.x; i < 9; i += 1) {
+    if (king.x === i && king.y === k) return true;
+    k -= 1;
+  }
+  k = queen.y;
+  for (let i = queen.x; i > 0; i -= 1) {
+    if (king.x === i && king.y === k) return true;
+    k += 1;
+  }
+  return false;
 }
 
 /**
@@ -326,8 +347,39 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const arr = [];
+  let counter = 1;
+  let startCol = 0;
+  let endCol = size - 1;
+  let startRow = 0;
+  let endRow = size - 1;
+  for (let i = 0; i < size; i += 1) {
+    arr[i] = [];
+  }
+  while (startCol <= endCol && startRow <= endRow) {
+    for (let i = startCol; i <= endCol; i += 1) {
+      arr[startRow][i] = counter;
+      counter += 1;
+    }
+    startRow += 1;
+    for (let j = startRow; j <= endRow; j += 1) {
+      arr[j][endCol] = counter;
+      counter += 1;
+    }
+    endCol -= 1;
+    for (let k = endCol; k >= startCol; k -= 1) {
+      arr[endRow][k] = counter;
+      counter += 1;
+    }
+    endRow -= 1;
+    for (let l = endRow; l >= startRow; l -= 1) {
+      arr[l][startCol] = counter;
+      counter += 1;
+    }
+    startCol += 1;
+  }
+  return arr;
 }
 
 /**
